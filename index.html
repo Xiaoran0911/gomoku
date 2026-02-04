@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Gomoku</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ✅ 게임 영역(센터 정렬 + 보드 바깥 배경 이미지가 깔릴 영역) -->
+  <div id="app">
+    <h1>오목</h1>
+
+    <!-- ✅ 상단바 -->
+    <div class="topbar">
+      <div id="status">모드를 선택해 주세요</div>
+      <div id="timer">01:00</div>
+      <button id="resetBtn">리셋</button>
+      <button id="modeBtn">모드 선택</button>
+    </div>
+
+    <!-- ✅ 보드 -->
+    <div id="board"></div>
+  </div>
+
+  <!-- ✅ 시작 오버레이 (모드/난이도/타이머 선택) -->
+  <div id="startOverlay" class="overlay">
+    <div class="panel">
+      <h2>게임 모드 선택</h2>
+
+      <div class="row">
+        <label>
+          <input type="radio" name="mode" value="ai" checked />
+          AI와 대결
+        </label>
+        <label>
+          <input type="radio" name="mode" value="pvp" />
+          2인 대결
+        </label>
+      </div>
+
+      <!-- ✅ AI 선택 시만 보이게 -->
+      <div class="row" id="difficultyRow">
+        <span>난이도:</span>
+        <select id="difficulty">
+          <option value="easy">쉬움</option>
+          <option value="normal" selected>보통</option>
+          <option value="hard">어려움</option>
+        </select>
+      </div>
+
+      <!-- ⏱ 타이머 설정 -->
+      <div class="row">
+        <span>턴 제한 시간:</span>
+        <select id="timeLimit">
+          <option value="30">30초</option>
+          <option value="60" selected>60초</option>
+          <option value="90">90초</option>
+          <option value="120">120초</option>
+        </select>
+      </div>
+
+      <button id="startBtn">시작하기</button>
+    </div>
+  </div>
+
+  <!-- ✅ 스크립트 -->
+  <script src="script.js"></script>
+</body>
+</html>

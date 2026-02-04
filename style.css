@@ -1,0 +1,242 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+
+  /* 전체 화면 배경 */
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+}
+
+}
+
+.topbar {
+  width: 600px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(4px);
+}
+
+.difficulty select {
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(15, 40px);
+  width: 600px;
+  user-select: none;
+
+  margin: 0 auto; /* ✅ 보드 중앙 */
+
+  background: #deb887;
+  border: 8px solid #8b5a2b;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 10px;
+}
+
+
+.cell {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+}
+
+#timer{
+  font-weight: 700;
+  min-width: 70px;
+  text-align: center;
+}
+
+/* 최근 돌 하이라이트 */
+.last-move {
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px gold;
+  }
+  to {
+    box-shadow: 0 0 15px gold;
+  }
+  
+}
+
+.stone {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.black {
+  background: radial-gradient(circle at 30% 30%, #555, #000);
+}
+
+.white {
+  background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+}
+
+#app {
+  width: 680px; /* 보드(600) + padding 여유 */
+  padding: 18px;
+  border-radius: 18px;
+
+  /* ✅ 보드 밑(바깥) 배경 이미지 */
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* 글자/보드 잘 보이게 어두운 필터 */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+  display: flex;                     /* ✅ 추가 */
+  flex-direction: column;            /* ✅ 추가 */
+  align-items: center;               /* ✅ 추가: 내부 요소 가운데 정렬 */
+}
+
+#app h1{
+  width: 100%;
+  text-align: center;                /* ✅ 추가 */
+  margin: 6px 0 14px;
+  color: white;                       /* 원하면 흰색으로 바꿔도 됨 */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* ✅ 배경을 살짝 어둡게(가독성) */
+#app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(2px);
+}
+
+/* ✅ 내부 요소는 위로 */
+#app > * {
+  position: relative;
+  z-index: 1;
+}
+
+.overlay{
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;               /* ✅ 화면 세로 중앙 */
+  justify-content: center;           /* ✅ 화면 가로 중앙 */
+  background: rgba(0,0,0,0.15);      /* 살짝만 어둡게(선택) */
+  z-index: 999;
+}
+
+.panel{
+  width: 320px;
+  background: rgba(255,255,255,0.92); /* ✅ 밝은 카드 */
+  border-radius: 14px;
+  padding: 18px 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  transform: translateY(-200px);
+
+}
+
+.panel h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 14px;
+  bottom: 0;               /* 아래에서 시작 */
+  animation: shoot 1.8s ease-out forwards;
+  z-index: 2000;
+}
+
+@keyframes shoot {
+  to {
+    transform: translate(var(--x), var(--y)) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+#winEffect {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 110px;
+  font-weight: 900;
+  color: gold;
+  letter-spacing: 8px;
+
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 30px orange;
+
+  animation: winPop 0.4s ease-out;
+  z-index: 3000;
+}
+
+@keyframes winPop {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#loseEffect {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 120px;
+  font-weight: 900;
+  color: red;
+  letter-spacing: 10px;
+
+  background: rgba(0,0,0,0.5);
+  text-shadow: 0 0 20px black;
+
+  animation: loseFlash 0.3s alternate 6;
+  z-index: 3000;
+}
+
+@keyframes loseFlash {
+  from { opacity: 1; }
+  to { opacity: 0.3; }
+}
