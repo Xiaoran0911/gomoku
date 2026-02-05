@@ -219,7 +219,7 @@ function endGame(msg) {
   statusDiv.textContent = msg;
 
   // 사람 승리
-  if (msg.includes("당신") || msg.includes("플레이어1")) {
+  if (msg.includes("당신") || msg.includes("플레이어1") || msg.includes("플레이어2"))  {
     showWinEffect();
     launchConfetti();
   }
